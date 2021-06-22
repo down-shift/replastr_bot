@@ -45,7 +45,7 @@ def text(message):
 def photo_handling(message):
     # processing image
     cnt = 0
-    pl_kinds = ['PET', 'HDPE', 'PVC']
+    pl_kinds = ['PET', 'HDPE', 'PVC', 'LDPE', 'PP', 'PS', 'O']
     tm_kinds = ['Sprite', 'Чудо']
     main_type = 0
     label_type = 0
@@ -72,9 +72,15 @@ def photo_handling(message):
     msg3 = 'Ближайший пункт переработки: ' + address
     bot.send_message(message.chat.id, msg2)
     bot.send_message(message.chat.id, msg3)
+    if main_type == 3 or lid_type == 3 or label_type == 3:
+        bot.send_message(message.chat.id, 'Внимание! Пластик типа 3 / PVC нельзя утилизировать.')
+    if main_type == 7 or lid_type == 7 or label_type == 7 :
+        bot.send_message(message.chat.id, 'Внимание! Пластик типа 7 / O нельзя утилизировать.')
+        
     some_str = 'Нажми «Вернуться», чтобы ещё раз загрузить фотографию для анализа. Нажми «Узнать больше», чтобы получить дополнительные рекомендации по утилизации.'
     bot.send_message(message.chat.id, some_str, reply_markup = markup)
 
     cnt += 1
 
 bot.polling(none_stop = True)
+
